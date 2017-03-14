@@ -46,26 +46,25 @@ int err_msg_print_allowed = false;
 
 
 void printVoltage(int volt_in) {
-  int i = 0;
   int voltage = (volt_in-512) * 1.5;
-  Serial.print("Orig val: ");
+  Serial.print(F("Orig val: "));
   Serial.print(volt_in , DEC);
-  Serial.print(", Volt: ");
+  Serial.print(F(", Volt: "));
   Serial.print(voltage , DEC);
-  Serial.println("mV");
+  Serial.println(F("mV"));
 }
 
 
 void printByte(unsigned char byte_in) {
   int i = 0;
-  Serial.print("Byte: ");
+  Serial.print(F("Byte: "));
   while( i < 8 ) {
     Serial.print(bitRead(byte_in,7-i));
     i++;
   }
-  Serial.print(" , 0x");
+  Serial.print(F(" , 0x"));
   Serial.print(byte_in,HEX);
-  Serial.print(" , ");
+  Serial.print(F(" , "));
   Serial.println(byte_in,DEC);
 }
 
@@ -73,14 +72,14 @@ void printByte(unsigned char byte_in) {
 
 void printWord(word word_in) {
   int i = 0;
-  Serial.print("Word: ");
+  Serial.print(F("Word: "));
   while( i < 16 ) {
     Serial.print(bitRead(word_in,15-i));
     i++;
   }
-  Serial.print(" , 0x");
+  Serial.print(F(" , 0x"));
   Serial.print(word_in,HEX);
-  Serial.print(" , ");
+  Serial.print(F(" , "));
   Serial.println(word_in,DEC);
 }
 

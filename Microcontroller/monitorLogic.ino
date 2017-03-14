@@ -164,7 +164,7 @@ void MON_setComparatorDutyCycle(unsigned char level)
     MON_configuration_register_local[0] = (MON_configuration_register_local[0] | level);
   }
   else if(__DEBUG__) {
-    Serial.println("ERR: Trying to set invalid ADC conversion level!");
+    Serial.println(F("ERR: Trying to set invalid ADC conversion level!"));
   }
 }
 
@@ -190,4 +190,3 @@ void checkVoltages()
     i++;
   }
 }
-

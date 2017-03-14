@@ -13,11 +13,11 @@ unsigned char calculatePECForNextBit(boolean in_bit , unsigned char cur_pec)
   boolean in1 = 0;
   boolean in2 = 0;
   unsigned char new_pec = 0;
-  
+
   in0 = (in_bit ^ bitRead(cur_pec , 7));
   in1 = (in0 ^ bitRead(cur_pec , 0));
   in2 = (in0 ^ bitRead(cur_pec , 1));
-  
+
   bitWrite(new_pec , 7 , bitRead(cur_pec,6));
   bitWrite(new_pec , 6 , bitRead(cur_pec,5));
   bitWrite(new_pec , 5 , bitRead(cur_pec,4));
@@ -26,7 +26,7 @@ unsigned char calculatePECForNextBit(boolean in_bit , unsigned char cur_pec)
   bitWrite(new_pec , 2 , in2);
   bitWrite(new_pec , 1 , in1);
   bitWrite(new_pec , 0 , in0);
-  
+
   return new_pec;
 }
 
@@ -40,7 +40,7 @@ unsigned char calculatePECForByte(unsigned char input , unsigned char pec , bool
   if( is_single_byte ) { /* Not for an array. Init new pec */
     own_pec = initPEC();
   }
-  
+
   while( i < 8 ) {
     in_bit = bitRead(input , 7-i);
     own_pec = calculatePECForNextBit(in_bit , own_pec);
@@ -55,17 +55,17 @@ int calculatePECForByteArray(unsigned char* byte_arr , int byte_count)
 {
   int i = 0;
   unsigned char pec = initPEC();
-  
+
   while( i < byte_count ) {
     pec = calculatePECForByte(*(byte_arr + i) , pec , false);
     i++;
   }
-  
+
   if( __PEC_DEBUG__ ) {
-    Serial.print("PEC for byte array is: ");
+    Serial.print(F("PEC for byte array is: "));
     printByte(pec);
     Serial.println("");
   }
-  
+
   return pec;
 }

@@ -2,7 +2,7 @@
 void setup() {
   Serial.begin(9600);
   SPI_openBus();
-  Serial.println("Opened SPI bus.");
+  Serial.println(F("Opened SPI bus."));
   displayInitSequence();
 }
 
@@ -10,7 +10,7 @@ void setup() {
 
 void displayInitSequence()
 {
-  int i = 1;  
+  int i = 1;
   while( i < 9 ) {
     MON_toggleGPIOLed1( ((i%2)==1) );
     MON_toggleGPIOLed2( ((i%2)==1) );
@@ -24,7 +24,7 @@ void displayInitSequence()
 
 
 void loop()
-{ 
+{
   updateErrMsgCtr();
 
   handleInput();
@@ -44,9 +44,8 @@ void loop()
   SPI_readConfigurationRegister();
 
   SPI_readAllVoltages();
-  
+
   checkVoltages();
-  
+
   delay(80);
 }
-

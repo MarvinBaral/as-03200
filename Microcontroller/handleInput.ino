@@ -71,74 +71,74 @@ void handleInput()
   if( user_input == -1 ) {
     return;
   }
-  
-  
+
+
   if( start_discharge_select ) {
     startDischarge(user_input);
   }
   else if( stop_discharge_select ) {
     stopDischarge(user_input);
   }
-  
-  
+
+
   else if( (user_input >= '0') && (user_input <= '7') ) {
     MON_setComparatorDutyCycle((unsigned char) (user_input & 0x0F));
     if(__DEBUG__) {
-      Serial.println("\nChanged comparator duty cycle in local buffer.");
+      Serial.println(F("\nChanged comparator duty cycle in local buffer."));
     }
   }
-  
+
   else if(user_input == 'a') {
     if(__DEBUG__) {
-      Serial.println("\nToggle start adc conversion command to monitor.");
+      Serial.println(F("\nToggle start adc conversion command to monitor."));
     }
     do_adc_conversion = !do_adc_conversion;
   }
   else if(user_input == 'd') {
     if(__DEBUG__) {
-      Serial.println("\nDischarge on: Which cell? (0-b or 'x' for all):");
+      Serial.println(F("\nDischarge on: Which cell? (0-b or 'x' for all):"));
     }
     start_discharge_select = true;
   }
   else if(user_input == 's') {
     if(__DEBUG__) {
-      Serial.println("\nToggle adc conversion, allow discharge command to monitor.");
+      Serial.println(F("\nToggle adc conversion, allow discharge command to monitor."));
     }
   do_adc_conversion_discharge = !do_adc_conversion_discharge;
 
   }
   else if(user_input == 'z') {
     if(__DEBUG__) {
-      Serial.println("\nStop discharge: Which cell? (0-b or 'x' for all):");
+      Serial.println(F("\nStop discharge: Which cell? (0-b or 'x' for all):"));
     }
     stop_discharge_select = true;
   }
   else if(user_input == 'w') {
     if(__DEBUG__) {
-      Serial.println("\nWriting local configuration register buffer to monitor.");
+      Serial.println(F("\nWriting local configuration register buffer to monitor."));
     }
     SPI_writeConfigurationRegister();
   }
-  
-  
+
+
   else if(user_input == 'H') {
     printHelp();
   }
   else if(user_input == 'C') {
     if(__DEBUG__) {
-      Serial.println("\nPrint monitor configuration register.");
+      Serial.println(F("\nPrint monitor configuration register."));
     }
     MON_printConfigurationRegister();
   }
   else if(user_input == 'D') {
     if(__DEBUG__) {
-      Serial.println("\nPrint monitor diagnostics register.");
+      Serial.println(F("\nPrint monitor diagnostics register."));
     }
     MON_printDiagnosticsRegister();
   }
   else if(user_input == 'L') {
     if(__DEBUG__) {
-      Serial.println("\nPrint local configuration register buffer.");
+      Serial.println(F("\nPrint local configuration register buffer."));
     }
     MON_printConfigurationRegisterLocal();
   }
@@ -147,7 +147,7 @@ void handleInput()
   }
   else if(user_input == 'V') {
     if(__DEBUG__) {
-      Serial.println("\nPrint all voltages.");
+      Serial.println(F("\nPrint all voltages."));
     }
     MON_printAllVoltages();
   }
@@ -206,7 +206,7 @@ void startDischarge(char user_input)
     MON_dischargeCell10(true);
     MON_dischargeCell11(true);
   }
-  Serial.print("Input received (ascii hex): ");
+  Serial.print(F("Input received (ascii hex): "));
   Serial.println(user_input , HEX);
   start_discharge_select = false;
 }
@@ -265,6 +265,6 @@ void stopDischarge(char user_input)
     MON_dischargeCell11(false);
   }
   stop_discharge_select = false;
-  Serial.print("Input received (ascii hex): ");
+  Serial.print(F("Input received (ascii hex): "));
   Serial.println(user_input , HEX);
 }

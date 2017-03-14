@@ -1,11 +1,11 @@
 void MON_printAllVoltages()
 {
   int i = 0;
-  Serial.println("VOLTAGES:");
+  Serial.println(F("VOLTAGES:"));
   while( i < 12 ) {
-    Serial.print("Batt ");
+    Serial.print(F("Batt "));
     Serial.print(i , DEC);
-    Serial.print(": ");
+    Serial.print(F(": "));
     printVoltage(MON_voltages[i]);
     i++;
   }
@@ -16,7 +16,7 @@ void MON_printAllVoltages()
 void MON_printConfigurationRegisterLocal()
 {
   int i = 0;
-  Serial.println("LOCAL CONFIGURATION REGISTER:");
+  Serial.println(F("LOCAL CONFIGURATION REGISTER:"));
   while( i < MON_SIZE_OF_CONF_REG ) {
     printByte(MON_configuration_register_local[i]);
     i++;
@@ -27,7 +27,7 @@ void MON_printConfigurationRegisterLocal()
 void MON_printConfigurationRegister()
 {
   int i = 0;
-  Serial.println("MONITOR CURRENT CONFIGURATION REGISTER:");
+  Serial.println(F("MONITOR CURRENT CONFIGURATION REGISTER:"));
   while( i < MON_SIZE_OF_CONF_REG ) {
     printByte(MON_configuration_register[i]);
     i++;
@@ -70,11 +70,11 @@ void MON_printDiagnosticsRegister_2()
 void printBatteryStatus()
 {
   int i = 0;
-  Serial.println("\nBATTERY STATUS:");
+  Serial.println(F("\nBATTERY STATUS:"));
   while( i < 12 ) {
-    Serial.print("Batt ");
+    Serial.print(F("Batt "));
     Serial.print(i , DEC);
-    Serial.print(": ");
+    Serial.print(F(": "));
     Serial.println(voltIndicator[i] , DEC);
     i++;
   }

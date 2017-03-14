@@ -50,11 +50,11 @@ void SPI_writeConfigurationRegister()
 {
   int i = 0;
   unsigned char pec = calculatePECForByte(MON_WRITE_CONF_REG , 0 , true);
-  
+
   SPI_setSlaveSelect(false);
   SPI.transfer(MON_WRITE_CONF_REG);
   SPI.transfer(pec);
-  
+
   while( i < MON_SIZE_OF_CONF_REG ) {
     SPI.transfer(MON_configuration_register_local[i]);
     i++;
@@ -78,7 +78,7 @@ void SPI_readConfigurationRegister()
   SPI_setSlaveSelect(false);
   SPI.transfer(MON_READ_CONF_REG);
   SPI.transfer(out_pec);
-    
+
   i = 0;
   while( i < MON_SIZE_OF_CONF_REG )
   {
@@ -88,18 +88,18 @@ void SPI_readConfigurationRegister()
   in_pec = SPI.transfer(0);
   in_pec_own = calculatePECForByteArray(MON_configuration_register , 6);
   SPI_setSlaveSelect(true);
-  
+
   if(__DEBUG__ && err_msg_print_allowed) {
     if( in_pec != in_pec_own ) {
-      Serial.println("\nCONFIGURATION REGISTER PECs MISMATCH!");
-      Serial.print("Pec received: ");
+      Serial.println(F("\nCONFIGURATION REGISTER PECs MISMATCH!"));
+      Serial.print(F("Pec received: "));
       printByte(in_pec);
-      Serial.print("Pec calculated: ");
+      Serial.print(F("Pec calculated: "));
       printByte(in_pec_own);
       Serial.println("");
     }
   }
-  
+
   return;
 }
 
@@ -123,7 +123,7 @@ void SPI_readAllVoltages()
   SPI_setSlaveSelect(false);
   SPI.transfer(MON_READ_ALL_VOLTAGES);
   SPI.transfer(pec_out);
-  
+
   i = 0;
   value_ctr = 0;
   while( i < 18 ) {
@@ -132,47 +132,47 @@ void SPI_readAllVoltages()
 
     if( bytes_read_not_handled == 0 ) {
       low_byte = rec_byte;
-      
+
       bytes_read_not_handled = 8;
     }
-    
+
     else if( bytes_read_not_handled == 8 ) {
       high_byte = (rec_byte & 0x0F);
       MON_voltages[value_ctr] = low_byte + (high_byte << 8);
-      
+
       low_byte = (rec_byte & 0xF0);
       low_byte = (low_byte >> 4);
-      
+
       bytes_read_not_handled = 4;
       value_ctr++;
     }
-    
+
     else {
       high_byte = rec_byte;
       MON_voltages[value_ctr] = low_byte + (high_byte << 4);
-      
+
       bytes_read_not_handled = 0;
       value_ctr++;
     }
 
     i++;
-  } /* END OF WHILE */  
-  
-  
+  } /* END OF WHILE */
+
+
   pec_in = SPI.transfer(0);
   SPI_setSlaveSelect(true);
-  
+
   if(__DEBUG__ && err_msg_print_allowed) {
     if( pec_in != pec_in_own ) {
-      Serial.println("\nVOLTAGE PECs MISMATCH!");
-      Serial.print("Pec received: ");
+      Serial.println(F("\nVOLTAGE PECs MISMATCH!"));
+      Serial.print(F("Pec received: "));
       printByte(pec_in);
-      Serial.print("Pec calculated: ");
+      Serial.print(F("Pec calculated: "));
       printByte(pec_in_own);
       Serial.println("");
     }
   }
-  
+
   return;
 }
 
@@ -183,7 +183,6 @@ void SPI_readAllVoltages()
 
 void SPI_readDiagnostics()
 {
-  int i = 0;
   word high_byte = 0;
   unsigned char rec_byte = 0;
   unsigned char out_pec = calculatePECForByte(MON_READ_DIAG_REG , 0 , true);
@@ -199,24 +198,24 @@ void SPI_readDiagnostics()
   MON_DIAG_reference_voltage = rec_byte;
   rec_byte = SPI.transfer(0);
   in_pec_own = calculatePECForByte(rec_byte , in_pec_own , false);
-  
+
   MON_DIAG_muxfail = (rec_byte & 0x20);
-  
+
   MON_DIAG_revision_number = (rec_byte & 0xC0);
   MON_DIAG_revision_number = (MON_DIAG_revision_number >> 6);
-  
+
   high_byte = (rec_byte & 0x0F);
   MON_DIAG_reference_voltage += (high_byte << 8);
 
   in_pec = SPI.transfer(0);
   SPI_setSlaveSelect(true);
-  
+
   if(__DEBUG__ && err_msg_print_allowed) {
     if( in_pec != in_pec_own ) {
-      Serial.println("\nDIAGNOSTICS PECs MISMATCH!");
-      Serial.print("Pec received: ");
+      Serial.println(F("\nDIAGNOSTICS PECs MISMATCH!"));
+      Serial.print(F("Pec received: "));
       printByte(in_pec);
-      Serial.print("Pec calculated: ");
+      Serial.print(F("Pec calculated: "));
       printByte(in_pec_own);
       Serial.println("");
     }
@@ -238,7 +237,6 @@ void SPI_sendCommandToMonitor(unsigned char cmd)
   SPI.transfer(cmd);
   SPI.transfer(pec);
   SPI_setSlaveSelect(true);
-  
+
   return;
 }
-
