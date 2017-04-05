@@ -156,55 +156,19 @@ void handleInput()
 
 void startDischarge(char user_input)
 {
-  if( user_input == '0' ) {
-    MON_dischargeCell0(true);
-  }
-  else if( user_input == '1' ) {
-    MON_dischargeCell1(true);
-  }
-  else if( user_input == '2' ) {
-    MON_dischargeCell2(true);
-  }
-  else if( user_input == '3' ) {
-    MON_dischargeCell3(true);
-  }
-  else if( user_input == '4' ) {
-    MON_dischargeCell4(true);
-  }
-  else if( user_input == '5' ) {
-    MON_dischargeCell5(true);
-  }
-  else if( user_input == '6' ) {
-    MON_dischargeCell6(true);
-  }
-  else if( user_input == '7' ) {
-    MON_dischargeCell7(true);
-  }
-  else if( user_input == '8' ) {
-    MON_dischargeCell8(true);
-  }
-  else if( user_input == '9' ) {
-    MON_dischargeCell9(true);
+  if( user_input >= '0' && user_input <= '9' ) {
+    MON_dischargeCell(user_input - '0', true);
   }
   else if( user_input == 'a' ) {
-    MON_dischargeCell10(true);
+    MON_dischargeCell(10, true);
   }
   else if( user_input == 'b' ) {
-    MON_dischargeCell11(true);
+    MON_dischargeCell(11, true);
   }
   else if( user_input == 'x' ) {
-    MON_dischargeCell0(true);
-    MON_dischargeCell1(true);
-    MON_dischargeCell2(true);
-    MON_dischargeCell3(true);
-    MON_dischargeCell4(true);
-    MON_dischargeCell5(true);
-    MON_dischargeCell6(true);
-    MON_dischargeCell7(true);
-    MON_dischargeCell8(true);
-    MON_dischargeCell9(true);
-    MON_dischargeCell10(true);
-    MON_dischargeCell11(true);
+    for (int i = 0; i < 12; i++) {
+      MON_dischargeCell(i, true);
+    }
   }
   Serial.print(F("Input received (ascii hex): "));
   Serial.println(user_input , HEX);
@@ -214,55 +178,19 @@ void startDischarge(char user_input)
 
 void stopDischarge(char user_input)
 {
-  if( user_input == '0' ) {
-    MON_dischargeCell0(false);
-  }
-  else if( user_input == '1' ) {
-    MON_dischargeCell1(false);
-  }
-  else if( user_input == '2' ) {
-    MON_dischargeCell2(false);
-  }
-  else if( user_input == '3' ) {
-    MON_dischargeCell3(false);
-  }
-  else if( user_input == '4' ) {
-    MON_dischargeCell4(false);
-  }
-  else if( user_input == '5' ) {
-    MON_dischargeCell5(false);
-  }
-  else if( user_input == '6' ) {
-    MON_dischargeCell6(false);
-  }
-  else if( user_input == '7' ) {
-    MON_dischargeCell7(false);
-  }
-  else if( user_input == '8' ) {
-    MON_dischargeCell8(false);
-  }
-  else if( user_input == '9' ) {
-    MON_dischargeCell9(false);
+  if( user_input >= '0' && user_input <= '9' ) {
+    MON_dischargeCell(user_input - '0', false);
   }
   else if( user_input == 'a' ) {
-    MON_dischargeCell10(false);
+    MON_dischargeCell(10, false);
   }
   else if( user_input == 'b' ) {
-    MON_dischargeCell11(false);
+    MON_dischargeCell(11, false);
   }
   else if( user_input == 'x' ) {
-    MON_dischargeCell0(false);
-    MON_dischargeCell1(false);
-    MON_dischargeCell2(false);
-    MON_dischargeCell3(false);
-    MON_dischargeCell4(false);
-    MON_dischargeCell5(false);
-    MON_dischargeCell6(false);
-    MON_dischargeCell7(false);
-    MON_dischargeCell8(false);
-    MON_dischargeCell9(false);
-    MON_dischargeCell10(false);
-    MON_dischargeCell11(false);
+    for (int i = 0; i < 12; i++) {
+      MON_dischargeCell(i, false);
+    }
   }
   stop_discharge_select = false;
   Serial.print(F("Input received (ascii hex): "));

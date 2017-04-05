@@ -43,118 +43,72 @@ void MON_toggleGPIOLed2(boolean toggle)
   }
 }
 
-void MON_dischargeCell0(boolean toggle)
+void MON_dischargeCell(byte cell, boolean toggle)
 {
+  byte discharge;
+  byte stop_discharge;
+  byte local_register = 1;
+  if (cell > 7) {
+    local_register = 2;
+  }
+  switch (cell) {
+    case 0:
+      discharge = 0x01;
+      stop_discharge = 0xFE;
+      break;
+    case 1:
+      discharge = 0x02;
+      stop_discharge = 0xFC;
+      break;
+    case 2:
+      discharge = 0x04;
+      stop_discharge = 0xFB;
+      break;
+    case 3:
+      discharge = 0x08;
+      stop_discharge = 0xF7;
+      break;
+    case 4:
+      discharge = 0x10;
+      stop_discharge = 0xEF;
+      break;
+    case 5:
+      discharge = 0x20;
+      stop_discharge = 0xDF;
+      break;
+    case 6:
+      discharge = 0x40;
+      stop_discharge = 0xBF;
+      break;
+    case 7:
+      discharge = 0x80;
+      stop_discharge = 0x7F;
+      break;
+    case 8:
+      discharge = 0x01;
+      stop_discharge = 0xFE;
+      break;
+    case 9:
+      discharge = 0x02;
+      stop_discharge = 0xFD; //??? not 0xFC?
+      break;
+    case 10:
+      discharge = 0x04;
+      stop_discharge = 0xFB;
+      break;
+    case 11:
+      discharge = 0x08;
+      stop_discharge = 0xF7;
+      break;
+    
+  }
   if(toggle) {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] | 0x01);
+    MON_configuration_register_local[local_register] = (MON_configuration_register_local[1] | discharge);
   }
   else {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] & 0xFE);
+    MON_configuration_register_local[local_register] = (MON_configuration_register_local[1] & stop_discharge);
   }
 }
-void MON_dischargeCell1(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] | 0x02);
-  }
-  else {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] & 0xFC);
-  }
-}
-void MON_dischargeCell2(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] | 0x04);
-  }
-  else {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] & 0xFB);
-  }
-}
-void MON_dischargeCell3(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] | 0x08);
-  }
-  else {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] & 0xF7);
-  }
-}
-void MON_dischargeCell4(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] | 0x10);
-  }
-  else {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] & 0xEF);
-  }
-}
-void MON_dischargeCell5(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] | 0x20);
-  }
-  else {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] & 0xDF);
-  }
-}
-void MON_dischargeCell6(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] | 0x40);
-  }
-  else {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] & 0xBF);
-  }
-}
-void MON_dischargeCell7(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] | 0x80);
-  }
-  else {
-    MON_configuration_register_local[1] = (MON_configuration_register_local[1] & 0x7F);
-  }
-}
-void MON_dischargeCell8(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[2] = (MON_configuration_register_local[2] | 0x01);
-  }
-  else {
-    MON_configuration_register_local[2] = (MON_configuration_register_local[2] & 0xFE);
-  }
-}
-void MON_dischargeCell9(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[2] = (MON_configuration_register_local[2] | 0x02);
-  }
-  else {
-    MON_configuration_register_local[2] = (MON_configuration_register_local[2] & 0xFD);
-  }
-}
-void MON_dischargeCell10(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[2] = (MON_configuration_register_local[2] | 0x04);
-  }
-  else {
-    MON_configuration_register_local[2] = (MON_configuration_register_local[2] & 0xFB);
-  }
-}
-void MON_dischargeCell11(boolean toggle)
-{
-  if(toggle) {
-    MON_configuration_register_local[2] = (MON_configuration_register_local[2] | 0x08);
-  }
-  else {
-    MON_configuration_register_local[2] = (MON_configuration_register_local[2] & 0xF7);
-  }
-}
-
-
-
-
 
 /* Set comparator duty cycle. Value is a number between 0-7. See LTC6803 datasheet. */
 void MON_setComparatorDutyCycle(unsigned char level)
