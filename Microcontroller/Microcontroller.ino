@@ -1,11 +1,11 @@
-#define __DEMO__    /* Comment out entire line for real implementation */
+/*#define __DEMO__    /* Comment out entire line for real implementation */
 
 
 #define __DEBUG__ true
 #define __PEC_DEBUG__ false
 
 /* Definitions about SPI Slave - Monitor */
-#define MON_BOARD_COUNT 6  /* Amount of monitor boards connected to system */
+#define MON_BOARD_COUNT 1 /* Amount of monitor boards connected to system */
 /* Values of registers in the LTC6803 circuit */
 #define MON_WRITE_CONF_REG 0x01
 #define MON_READ_CONF_REG 0x02

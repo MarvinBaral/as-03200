@@ -153,7 +153,6 @@ void handleInput()
   }
 }
 
-
 void startDischarge(char user_input)
 {
   if( user_input >= '0' && user_input <= '9' ) {

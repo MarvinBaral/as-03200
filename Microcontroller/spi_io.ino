@@ -18,6 +18,7 @@ void SPI_openBus()
 {
   SPI.begin();
   pinMode(SPI_SS_MON , OUTPUT);    /* Set slave select 1 to output */
+  pinMode(SPI_MISO, INPUT_PULLUP);
   digitalWrite(SPI_SS_MON , HIGH); /* Slave select high when no traffic */
   SPI.setBitOrder(MSBFIRST);             /* LTC-6803 has Most Significant Bit first */
   SPI.setDataMode(SPI_MODE3);            /* CPHA = 1 , CPOL = 1. (LTC-6803 datasheet page 17) */
