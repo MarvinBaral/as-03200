@@ -47,11 +47,11 @@ int err_msg_print_allowed = false;
 
 void printVoltage(int volt_in) {
   int voltage = (volt_in-512) * 1.5;
-  Serial.print(F("Orig val: "));
-  Serial.print(volt_in , DEC);
-  Serial.print(F(", Volt: "));
+//  Serial.print(F("Orig val: "));
+//  Serial.print(volt_in , DEC);
+//  Serial.print(F(", Volt: "));
   Serial.print(voltage , DEC);
-  Serial.println(F("mV"));
+  Serial.print(F("mV"));
 }
 
 
